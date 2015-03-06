@@ -35,7 +35,6 @@
                     <thead>
                         <tr>
                             <th>Todo Item</th>
-                            <th>Description</th>
                             <th>Due Date</th>
                             <th>Completed</th>
                             <th>Urgent</th>
@@ -54,7 +53,6 @@
                                 <tr class="text-danger">
                             @endif
                                 <td {{$style}}><a href="{{ route('projects.todos.show', [$todo->project_id, $todo->id])  }}">{{ $todo->name }}</a></td>
-                                <td {{$style}}>{{$todo->description}}</td>
                                 <td {{$style}}>{{$todo->due_date}}</td>
                                 <td {{$style}}>{{$todo->completed ? 'Yes' : 'No' }}</td>
                                 <td {{$style}}>{{$todo->urgent ? 'Yes' : 'No'}}</td>
