@@ -3,13 +3,13 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Http\Requests\TodoFormRequest;
 use App\Todo;
 use App\Project;
 use App\User;
+use Carbon;
 use Illuminate\Http\Request;
 use Laracasts\Flash\Flash;
-use Carbon;
+use App\Http\Requests\TodoFormRequest;
 
 class TodosController extends Controller {
 
@@ -31,6 +31,17 @@ class TodosController extends Controller {
 	{
         return view('todos.index', compact('project'));
 	}
+
+    /**
+     * Display a listing of all Todos.
+     *
+     * @return Response
+     */
+    public function all()
+    {
+        $todos = Todo::all();
+        return view('todos.all', compact('todos'));
+    }
 
 	/**
 	 * Show the form for creating a new resource.
@@ -57,8 +68,8 @@ class TodosController extends Controller {
 
         Todo::create($input);
 
-        Flash::message('Your todo has been created!');
-        return redirect()->route('projects.show', [ $project->id ]);
+        Flash::success('Your todo has been created!');
+        return redirect()->route('projects.todos.index', [ $project->id ]);
 	}
 
     /**
@@ -98,11 +109,11 @@ class TodosController extends Controller {
         $input = array_except(\Input::all(), '_method');
 
         if (!isset($input['completed'])) $input['completed'] = 0;
-        if (!isset($input['urgent'])) $input['urgent'] = 0;
+        if (!isset($input['urgent']) || isset($input['completed'])) $input['urgent'] = 0;
 
 		$todo->update($input);
 
-        Flash::message('Your todo has been updated!');
+        Flash::success('Your todo has been updated!');
         return \Redirect::refresh();
 	}
 
@@ -117,8 +128,8 @@ class TodosController extends Controller {
 	{
 		$todo->delete();
 
-        Flash::message('Your todo has been deleted!');
-        return redirect()->route('projects.show', [ $project->id ]);
+        Flash::success('Your todo has been deleted!');
+        return redirect()->route('todos.index', [ $project->id ]);
 
 	}
 

@@ -40,4 +40,10 @@ Route::resource('projects', 'ProjectController');
  */
 Route::resource('projects.todos', 'TodosController');
 
-Route::get('admin/articlesajax', array('as' => 'articlesajax', 'uses' => 'AjaxController@articlesajax'));
+/*
+ * Get all Todos
+ */
+Route::get('/todos/all', [
+    'as' => 'todos.all',
+    'uses' => 'TodosController@all'
+]);

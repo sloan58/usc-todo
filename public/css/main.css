@@ -30,10 +30,10 @@
     border-top: 1px solid #E5E5E5;
 }
 
-.todo-list {
+.todo-list, .table-top-margin, .project-delete {
     margin-top: 20px;
 }
 
-.table-top-margin {
-    margin-top: 20px;
+.project-name {
+    text-decoration: none;
 }

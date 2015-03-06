@@ -3,10 +3,11 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Http\Requests\ProjectFormRequest;
 use App\Project;
 use App\Todo;
 use Illuminate\Http\Request;
+use Laracasts\Flash\Flash;
+use App\Http\Requests\ProjectFormRequest;
 
 class ProjectController extends Controller {
 
@@ -48,8 +49,10 @@ class ProjectController extends Controller {
 	 */
 	public function store(ProjectFormRequest $request)
 	{
-        Project::create(\Request::all());
-        return \Redirect::refresh();
+        $project = Project::create(\Request::all());
+
+        Flash::success('Your project has been created.  Now add some Todos!');
+        return view('todos.index', compact('project'));
 	}
 
     /**
@@ -97,7 +100,24 @@ class ProjectController extends Controller {
      */
 	public function destroy(Project $project)
 	{
-		//
+
+        if($project->todos)
+        {
+           foreach($project->todos as $todos)
+           {
+               if(!$todos->completed)
+               {
+                   Flash::error('This project has incomplete todos.  Mark them as complete or remove them.');
+                   return redirect()->route('projects.todos.index', [ $project->id ]);
+               }
+           }
+        }
+
+        $project->delete();
+
+        Flash::success('The project has been deleted!');
+        return redirect()->route('projects.index');
+
 	}
 
 }

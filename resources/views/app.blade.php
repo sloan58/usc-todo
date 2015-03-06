@@ -7,6 +7,7 @@
 	<title>USC Tools App</title>
 
 	<link href="//cdn.datatables.net/1.10.5/css/jquery.dataTables.css" rel="stylesheet">
+	<link href='//fonts.googleapis.com/css?family=Lato:100' rel='stylesheet' type='text/css'>
 	<link href="{{ asset('/css/app.css') }}" rel="stylesheet">
 	<link href="{{ asset('/css/main.css') }}" rel="stylesheet">
 	<link href="{{ asset('/css/projects.css') }}" rel="stylesheet">
@@ -41,13 +42,9 @@
 	<script src="//cdn.datatables.net/1.10.5/js/jquery.dataTables.min.js"></script>
 	<script src="//cdn.datatables.net/plug-ins/f2c75b7247b/integration/bootstrap/3/dataTables.bootstrap.js"></script>
 	<script src="{{ asset('/js/project-todos-datatable.js')  }}"></script>
+	<script src="{{ asset('/js/all-todos-datatable.js')  }}"></script>
 	<script src="{{ asset('/js/bootstrap-datepicker.js')  }}"></script>
-	<script>
-	    $('.datepicker').datepicker({
-	        format: 'mm/dd/yyyy',
-//            startDate: '-3d'
-	    })
-	</script>
+	<script src="{{ asset('/js/todo-datepicker.js')  }}"></script>
 
 </body>
 </html>
