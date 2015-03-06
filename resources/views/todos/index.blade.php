@@ -44,7 +44,7 @@
         </div>
 
         @if($project->todos->count())
-        <div class="col-md-9">
+        <div class="col-md-10">
             <table id="project-todos" class="display table table-striped" cellspacing="0" width="100%">
                     <thead>
                         <tr>
