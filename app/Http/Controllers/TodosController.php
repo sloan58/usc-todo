@@ -108,13 +108,11 @@ class TodosController extends Controller {
 
         $input = array_except(\Input::all(), '_method');
 
-        if (!isset($input['completed'])) $input['completed'] = 0;
-        if (!isset($input['urgent']) || isset($input['completed'])) $input['urgent'] = 0;
+        if (isset($input['completed'])) $input['urgent'] = 0;
 
-		$todo->update($input);
-
+        $todo->update($input);
         Flash::success('Your todo has been updated!');
-        return \Redirect::refresh();
+        return redirect()->route('projects.todos.index', [ $project->id ]);
 	}
 
     /**
@@ -129,7 +127,7 @@ class TodosController extends Controller {
 		$todo->delete();
 
         Flash::success('Your todo has been deleted!');
-        return redirect()->route('todos.index', [ $project->id ]);
+        return redirect()->route('projects.todos.index', [ $project->id ]);
 
 	}
 
