@@ -13,7 +13,7 @@
     <div class="container">
 
         <div class="col-md-3">
-        <a href="{!! route('projects.show',$project->id) !!}">
+        <a href="{!! route('projects.todos.index',$project->id) !!}">
             <button class="btn btn-default">
                 Back to Project
             </button>
