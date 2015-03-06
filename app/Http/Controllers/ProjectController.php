@@ -107,7 +107,7 @@ class ProjectController extends Controller {
            {
                if(!$todos->completed)
                {
-                   Flash::error('This project has incomplete todos.  Mark them as complete or remove them.');
+                   Flash::error('This project has incomplete todos.  Mark them as completed or remove them.');
                    return redirect()->route('projects.todos.index', [ $project->id ]);
                }
            }

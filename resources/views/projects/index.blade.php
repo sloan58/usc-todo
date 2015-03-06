@@ -4,11 +4,12 @@
 
     @section('hero')
 
-        @if($projects->count())
+
             <div class="col-md-4 text-left">
+            @if($projects->count())
                 {!! $projects->render() !!}
+            @endif
             </div>
-        @endif
 
         @if(\Auth::user())
             {!! Form::open(['class' => 'form']) !!}
@@ -29,20 +30,21 @@
 
 <div class="container">
     <div class="row">
+     @if($projects->count())
         <div class="col-md-2 vcenter">
         <a href="{!! route('todos.all') !!}">
             <button class="btn btn-default pull-left">
-                Show all Todos
+                Show all Project Todos
             </button>
         </a>
         </div>
         <div class="col-md-3 col-md-offset-2 vcenter">
-            <div class="text-center lato-headers">Project Listing</div>
+            <div class="text-center lato-headers">Projects Listing</div>
         </div>
     </div>
 
     <div class="row table-top-margin">
-        @if($projects->count())
+
             @foreach($projects as $project)
                 <div class="col-md-2">
                     <article class="media project-media">
@@ -56,6 +58,10 @@
                     </article>
                 </div>
             @endforeach
+        @else
+        <div class="col-md-4 col-md-offset-4">
+            <h2 class="lato-headers text-center">No Projects..... Add One!</h2>
+        </div>
         @endif
     </div>
 </div>
