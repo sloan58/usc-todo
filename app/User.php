@@ -38,7 +38,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function todos()
     {
-        return $this->hasMany('App\Project');
+        return $this->hasMany('App\Todo');
     }
 
 }

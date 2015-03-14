@@ -65,7 +65,6 @@ class ProjectController extends Controller {
             $message->to($emails)->subject("USC Todo App - a new project '$project_array[name]' has been added!");
         });
 
-
         Flash::success('Your project has been created.  Now add some Todos!');
         return view('todos.index', compact('project'));
 	}
