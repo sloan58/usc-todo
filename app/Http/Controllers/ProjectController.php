@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 
+use App\User;
 use Mail;
 use App\Todo;
 use App\Project;
@@ -53,11 +54,13 @@ class ProjectController extends Controller {
 	{
 
         $project = Project::create(\Request::all());
+        User::find(\Auth::user()->id)->subscriptions()->attach($project->id);
+
         $project_array = $project->toArray();
 
         $emails = \DB::table('users')->lists('email');
 
-        Mail::send('projects.emails.create', ['name' => $project->name,'user' => $project->user->name], function($message) use ($emails,$project_array)
+        Mail::send('projects.emails.create', ['name' => $project->name,'user' => $project->user->name, 'id' => $project->id], function($message) use ($emails,$project_array)
         {
             $message->from('info@laireight.com');
             $message->to($emails)->subject("USC Todo App - a new project '$project_array[name]' has been added!");
@@ -98,10 +101,14 @@ class ProjectController extends Controller {
      * @internal param int $id
      * @return Response
      */
-	public function update(ProjectFormRequest $request)
+	public function update(Project $project)
 	{
-		//
-	}
+        User::find(\Auth::user()->id)->subscriptions()->attach($project->id);
+
+        Flash::success('You are now subscribed to this project!');
+        return redirect()->route('projects.todos.index', [ $project->id ]);
+
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -127,9 +134,9 @@ class ProjectController extends Controller {
 
         $project_array = $project->toArray();
 
-        $emails = \DB::table('users')->lists('email');
+        $emails = $project->subscribers()->lists('email');
 
-        Mail::send('projects.emails.create', ['name' => $project->name,'user' => $project->user->name], function($message) use ($emails,$project_array)
+        Mail::send('projects.emails.delete', ['name' => $project->name,'user' => $project->user->name], function($message) use ($emails,$project_array)
         {
             $message->from('info@laireight.com');
             $message->to($emails)->subject("USC Todo App - The '$project_array[name]' project has been removed!");

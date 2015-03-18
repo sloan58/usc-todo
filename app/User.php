@@ -31,11 +31,25 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	protected $hidden = ['password', 'remember_token'];
 
+    /*
+     * A user belongs to many projects
+     */
     public function project()
     {
         return $this->hasMany('App\Project');
     }
 
+    /*
+     * A user can subscribe to updates for many projects
+     */
+    public function subscriptions()
+    {
+        return $this->belongsToMany('App\Project');
+    }
+
+    /*
+     * A User has many todos
+     */
     public function todos()
     {
         return $this->hasMany('App\Todo');

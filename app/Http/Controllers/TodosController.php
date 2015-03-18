@@ -69,7 +69,7 @@ class TodosController extends Controller {
 
         $todo = Todo::create($input);
 
-        $emails = \DB::table('users')->lists('email');
+        $emails = $project->subscribers()->lists('email');
 
         Mail::send('todos.emails.create', ['name' => $todo->name,'user' => $todo->user->name], function($message) use ($emails,$todo)
         {
@@ -121,7 +121,7 @@ class TodosController extends Controller {
 
             $input['urgent'] = 0;
 
-            $emails = \DB::table('users')->lists('email');
+            $emails = $project->subscribers()->lists('email');
 
             Mail::send('todos.emails.update', ['name' => $todo->name,'user' => $todo->user->name], function($message) use ($emails,$todo)
             {
