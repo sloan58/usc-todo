@@ -54,7 +54,7 @@ return [
 	|
 	*/
 
-	'from' => ['address' => 'info@laireight.com', 'name' => 'LairEight Info'],
+	'from' => ['address' => 'info@laireight.com', 'name' => 'USC Todo App'],
 
 	/*
 	|--------------------------------------------------------------------------
