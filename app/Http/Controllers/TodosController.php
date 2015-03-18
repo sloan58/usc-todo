@@ -1,14 +1,15 @@
 <?php namespace App\Http\Controllers;
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
 
-use App\Todo;
-use App\Project;
-use App\User;
+use Mail;
 use Carbon;
-use Illuminate\Http\Request;
+use App\Todo;
+use App\User;
+use App\Project;
+use App\Http\Requests;
 use Laracasts\Flash\Flash;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\TodoFormRequest;
 
 class TodosController extends Controller {
@@ -66,7 +67,15 @@ class TodosController extends Controller {
         if (!isset($input['completed'])) $input['completed'] = 0;
         if (!isset($input['urgent'])) $input['urgent'] = 0;
 
-        Todo::create($input);
+        $todo = Todo::create($input);
+
+        $emails = \DB::table('users')->lists('email');
+
+        Mail::send('todos.emails.create', ['name' => $todo->name,'user' => $todo->user->name], function($message) use ($emails,$todo)
+        {
+            $message->from('info@laireight.com');
+            $message->to($emails)->subject("USC Todo App - The ". $todo->project->name . " project has been updated.");
+        });
 
         Flash::success('Your todo has been created!');
         return redirect()->route('projects.todos.index', [ $project->id ]);
@@ -108,9 +117,22 @@ class TodosController extends Controller {
 
         $input = array_except(\Input::all(), '_method');
 
-        if (isset($input['completed'])) $input['urgent'] = 0;
+        if (isset($input['completed'])) {
+
+            $input['urgent'] = 0;
+
+            $emails = \DB::table('users')->lists('email');
+
+            Mail::send('todos.emails.update', ['name' => $todo->name,'user' => $todo->user->name], function($message) use ($emails,$todo)
+            {
+                $message->from('info@laireight.com');
+                $message->to($emails)->subject("USC Todo App - The ". $todo->project->name . " project has been updated.");
+            });
+
+        }
 
         $todo->update($input);
+
         Flash::success('Your todo has been updated!');
         return redirect()->route('projects.todos.index', [ $project->id ]);
 	}
