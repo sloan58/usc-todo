@@ -35,11 +35,13 @@
 
             @include('partials.status_legend')
 
+            @if(!$project->subscribers()->count()))
             <div class="form-group">
                 {!! Form::open(array('class' => 'form-inline', 'method' => 'PATCH', 'route' => array('projects.update', $project->id))) !!}
                 {!! Form::submit('Subscribe!', array('class' => 'btn btn-success project-delete center-block')) !!}
                 {!! Form::close() !!}
             </div>
+            @endif
 
             <div class="form-group">
                 {!! Form::open(array('class' => 'form-inline', 'method' => 'DELETE', 'route' => array('projects.destroy', $project->id))) !!}
