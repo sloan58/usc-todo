@@ -35,17 +35,23 @@
 
             @include('partials.status_legend')
 
-            @if(!$project->subscribers()->count()))
+            @if(!$project->alreadySubscribed(\Auth::user()->id))
             <div class="form-group">
-                {!! Form::open(array('class' => 'form-inline', 'method' => 'PATCH', 'route' => array('projects.update', $project->id))) !!}
+                {!! Form::open(array('class' => 'form-inline', 'route' => array('subscribe', $project->id))) !!}
                 {!! Form::submit('Subscribe!', array('class' => 'btn btn-success project-delete center-block')) !!}
+                {!! Form::close() !!}
+            </div>
+            @else
+             <div class="form-group">
+                {!! Form::open(array('class' => 'form-inline', 'route' => array('unsubscribe', $project->id))) !!}
+                {!! Form::submit('Unsubscribe', array('class' => 'btn btn-default project-delete center-block')) !!}
                 {!! Form::close() !!}
             </div>
             @endif
 
             <div class="form-group">
                 {!! Form::open(array('class' => 'form-inline', 'method' => 'DELETE', 'route' => array('projects.destroy', $project->id))) !!}
-                {!! Form::submit('Delete Project!', array('class' => 'btn btn-danger project-delete center-block')) !!}
+                {!! Form::submit('Delete Project', array('class' => 'btn btn-danger project-delete center-block')) !!}
                 {!! Form::close() !!}
             </div>
 

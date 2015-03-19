@@ -33,6 +33,15 @@ Route::controllers([
 /*
  *  Project Routes
  */
+Route::post('projects/{id}/subscribe',[
+    'as' => 'subscribe',
+    'uses' => 'ProjectController@subscribe'
+]);
+Route::post('projects/{id}/unsubscribe',[
+    'as' => 'unsubscribe',
+    'uses' => 'ProjectController@unsubscribe'
+]);
+
 Route::resource('projects', 'ProjectController');
 
 /*

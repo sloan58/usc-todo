@@ -103,11 +103,7 @@ class ProjectController extends Controller {
      */
 	public function update(Project $project)
 	{
-        User::find(\Auth::user()->id)->subscriptions()->attach($project->id);
-
-        Flash::success('You are now subscribed to this project!');
-        return redirect()->route('projects.todos.index', [ $project->id ]);
-
+        //
     }
 
     /**
@@ -147,5 +143,25 @@ class ProjectController extends Controller {
         return redirect()->route('projects.index');
 
 	}
+
+    public function subscribe($id)
+    {
+
+        User::find(\Auth::user()->id)->subscriptions()->attach($id);
+
+        Flash::success('You are now subscribed to this project!');
+        return redirect()->route('projects.todos.index', [ $id ]);
+
+    }
+
+    public function unsubscribe($id)
+    {
+
+        User::find(\Auth::user()->id)->subscriptions()->detach($id);
+
+        Flash::success('You are now unsubscribed to this project.');
+        return redirect()->route('projects.todos.index', [ $id ]);
+
+    }
 
 }

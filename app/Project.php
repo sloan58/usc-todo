@@ -28,6 +28,15 @@ class Project extends Model {
         return $this->belongsToMany('App\User');
     }
 
+    public function alreadySubscribed($userId)
+    {
+        return ! is_null(
+            $this->subscribers()
+                ->where('user_id', $userId)
+                ->first()
+        );
+    }
+
     /*
      * A Project belongs to a User
      */
