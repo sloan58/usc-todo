@@ -10,7 +10,7 @@
 
     @stop
 
-<div class="container">
+<div class="container" ng-controller="mainController as main">
 
     <div class="row">
         <div class="col-md-2 col-md-offset-4">
@@ -73,7 +73,7 @@
                     @foreach($project->todos as $todo)
                         <?php $style = ""; ?>
                         @if($todo->completed)
-                            <tr class="text-muted">
+                            <tr class="text-muted" ng-hide="main.hideCompleted">
                             <?php $style = 'style=text-decoration:line-through'; ?>
                         @elseif($todo->urgent)
                             <tr class="text-danger">
@@ -87,6 +87,7 @@
                      @endforeach
                     </tbody>
             </table>
+            <p><input type="checkbox" ng-model="main.hideCompleted"> Hide Completed Todos</p>
         </div>
         @else
         <div class="col-md-4 col-md-offset-2">

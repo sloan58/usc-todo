@@ -129,6 +129,10 @@ class TodosController extends Controller {
                 $message->to($emails)->subject("USC Todo App - The ". $todo->project->name . " project has been updated.");
             });
 
+        } else {
+
+            $input['completed'] = 0;
+
         }
 
         $todo->update($input);
