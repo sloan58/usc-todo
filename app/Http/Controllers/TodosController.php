@@ -122,8 +122,9 @@ class TodosController extends Controller {
             $input['urgent'] = 0;
 
             $emails = $project->subscribers()->lists('email');
+            
 
-            Mail::send('todos.emails.update', ['name' => $todo->name,'user' => $todo->user->name], function($message) use ($emails,$todo)
+            Mail::send('todos.emails.update', ['name' => $todo->name,'user' => \Auth::user()->name], function($message) use ($emails,$todo)
             {
                 $message->from('info@laireight.com');
                 $message->to($emails)->subject("USC Todo App - The ". $todo->project->name . " project has been updated.");
