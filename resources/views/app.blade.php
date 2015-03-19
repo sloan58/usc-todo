@@ -38,8 +38,8 @@
 	<script src="{{ asset('js/vendor/jquery.js')  }}"></script>
 	<script src="{{ asset('js/vendor/angular.js')  }}"></script>
 	<script src="{{ asset('js/vendor/bootstrap.js')  }}"></script>
-	<script src="{{ asset('js/vendor/datatables.js')  }}"></script>
-	<script src="{{ asset('js/vendor/datatables-bootstrap3.js')  }}"></script>
+	<script src="{{ asset('js/vendor/dataTables.js')  }}"></script>
+	<script src="{{ asset('js/vendor/dataTables-bootstrap3.js')  }}"></script>
 	<script src="{{ asset('js/app.js')  }}"></script>
 	<script src="{{ asset('assets/site/js/custom-datatable.js')  }}"></script>
     <script src="{{ asset('assets/site/js/bootstrap-datepicker.js')  }}"></script>
