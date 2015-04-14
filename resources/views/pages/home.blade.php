@@ -15,7 +15,6 @@
     <div class="container">
         <div class="row">
             <div class="">
-                 {!! HTML::image('/images/ao.png', null, [ 'class' => 'img-responsive center-block']) !!}
             </div>
         </div>
     </div>

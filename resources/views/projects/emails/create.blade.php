@@ -604,7 +604,7 @@ h4{
 
                                                         <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
 
-                                                            <h1>A new project {{$name}} was posted by {{$user}}</h1><h3>If you'd like to subscribe to this project, follow the link below</h3>
+                                                            <h1>A new project '{{$name}}' was posted by {{$user}}</h1><h3>If you'd like to subscribe to this project, follow the link below</h3>
                                                             <a href="http://usc-todo.laireight.com/projects/{{$id}}" class="mc-template-link">Click here to login</a>
                                                         </td>
                                                     </tr>
