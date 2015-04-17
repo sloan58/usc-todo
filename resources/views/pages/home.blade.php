@@ -5,7 +5,7 @@
     @section('hero')
 
         <div class="col-md-12">
-            <h3 class="lato-headers">USC Todo Tracker</h3>
+            <h3 class="lato-headers">Todo Tracker</h3>
         </div>
 
     @stop
