@@ -57,7 +57,7 @@
                     @foreach($projects as $project)
                         <tr>
                             <td><a href="{{ route('projects.todos.index', $project->id)  }}">{{ $project->name }}</a></td>
-                            <td>{{$project->created_at}}</td>s
+                            <td>{{$project->created_at}}</td>
                             <td>{{$project->user->name }}</td>
                         </tr>
                     @endforeach
