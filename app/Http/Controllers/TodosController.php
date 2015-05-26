@@ -71,11 +71,14 @@ class TodosController extends Controller {
 
         $emails = $project->subscribers()->lists('email');
 
-        Mail::send('todos.emails.create', ['name' => $todo->name,'user' => $todo->user->name], function($message) use ($emails,$todo)
+        if (count($emails))
         {
-            $message->from('info@laireight.com');
-            $message->to($emails)->subject("USC Todo App - The ". $todo->project->name . " project has been updated.");
-        });
+            Mail::send('todos.emails.create', ['name' => $todo->name,'user' => $todo->user->name], function($message) use ($emails,$todo)
+            {
+                $message->from('info@laireight.com');
+                $message->to($emails)->subject("USC Todo App - The ". $todo->project->name . " project has been updated.");
+            });
+        }
 
         Flash::success('Your todo has been created!');
         return redirect()->route('projects.todos.index', [ $project->id ]);
@@ -93,6 +96,7 @@ class TodosController extends Controller {
         return view('todos.show', compact('project', 'todo'));
 	}
 
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -104,6 +108,7 @@ class TodosController extends Controller {
 	{
         return view('todos.edit', compact('project', 'todo'));
 	}
+
 
     /**
      * Update the specified resource in storage.
@@ -122,13 +127,15 @@ class TodosController extends Controller {
             $input['urgent'] = 0;
 
             $emails = $project->subscribers()->lists('email');
-            
 
-            Mail::send('todos.emails.update', ['name' => $todo->name,'user' => \Auth::user()->name], function($message) use ($emails,$todo)
+            if (count($emails))
             {
-                $message->from('info@laireight.com');
-                $message->to($emails)->subject("USC Todo App - The ". $todo->project->name . " project has been updated.");
-            });
+                Mail::send('todos.emails.update', ['name' => $todo->name,'user' => \Auth::user()->name], function($message) use ($emails,$todo)
+                {
+                    $message->from('info@laireight.com');
+                    $message->to($emails)->subject("USC Todo App - The ". $todo->project->name . " project has been updated.");
+                });
+            }
 
         } else {
 
