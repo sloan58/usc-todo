@@ -44,20 +44,26 @@
     </div>
 
     <div class="row table-top-margin">
-
-            @foreach($projects as $project)
-                <div class="col-md-2">
-                    <article class="media project-media">
-                            <div class="media-body">
-                                <h4 class="media-heading"><a href="{{ route('projects.todos.index', $project->id)  }}">{{ $project->name }}</a></h4>
-                                <span class="text-muted">
-                                    <span>Updated:</span><br/>
-                                    {{ $project->updated_at }}
-                                </span>
-                            </div>
-                    </article>
-                </div>
-            @endforeach
+            <div class="col-md-10 col-md-offset-1">
+                <table id="project-todos" class="display table table-striped" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Project Name</th>
+                            <th>Create On</th>
+                            <th>Added By</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($projects as $project)
+                        <tr>
+                            <td><a href="{{ route('projects.todos.index', $project->id)  }}">{{ $project->name }}</a></td>
+                            <td>{{$project->created_at}}</td>s
+                            <td>{{$project->user->name }}</td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
         @else
         <div class="col-md-4 col-md-offset-4">
             <h2 class="lato-headers text-center">No Projects..... Add One!</h2>
