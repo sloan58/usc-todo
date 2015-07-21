@@ -1,4 +1,7 @@
 // name our angular app
+
+'use strict';
+
 angular.module('todoApp', [])
     .controller('mainController', function() {
 
